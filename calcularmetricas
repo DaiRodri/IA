@@ -1,0 +1,45 @@
+import matplotlib.pyplot as plt
+
+def calcular_métricas(TP, TN, FP, FN):
+    # Acurácia
+    acuracia = (TP + TN) / (TP + TN + FP + FN)
+    
+    # Precisão
+    precisao = TP / (TP + FP) if (TP + FP) != 0 else 0
+    
+    # Recall (Sensibilidade)
+    recall = TP / (TP + FN) if (TP + FN) != 0 else 0
+    
+    # Especificidade
+    especificidade = TN / (TN + FP) if (TN + FP) != 0 else 0
+    
+    # F-score
+    f1_score = (2 * precisao * recall) / (precisao + recall) if (precisao + recall) != 0 else 0
+    
+    return {
+        "Acurácia": acuracia,
+        "Precisão": precisao,
+        "Recall": recall,
+        "Especificidade": especificidade,
+        "F1-Score": f1_score
+    }
+
+# Exemplo de uso:
+TP, TN, FP, FN = 50, 40, 10, 30
+metricas = calcular_métricas(TP, TN, FP, FN)
+
+# Criando o gráfico
+labels = list(metricas.keys())
+values = list(metricas.values())
+
+plt.figure(figsize=(10, 6))
+plt.bar(labels, values, color=['blue', 'green', 'red', 'orange', 'purple'])
+
+# Adicionando título e rótulos aos eixos
+plt.title('Métricas de Desempenho do Modelo de Classificação', fontsize=14)
+plt.xlabel('Métricas', fontsize=12)
+plt.ylabel('Valores', fontsize=12)
+
+# Exibindo o gráfico
+plt.ylim(0, 1)  # Para que todas as métricas se ajustem bem ao gráfico
+plt.show()
