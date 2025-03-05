@@ -1,0 +1,25 @@
+!apt-get update
+!apt-get install -y build-essential cmake git pkg-config libopencv-dev libgtk-3-dev libboost-all-dev libssl-dev
+!git clone https://github.com/AlexeyAB/darknet
+%cd darknet
+!make
+
+!wget http://images.cocodataset.org/zips/train2017.zip
+!unzip train2017.zip
+
+classes = 2
+train = "/content/darknet/train.txt"
+valid = "/content/darknet/val.txt"
+names = "/content/darknet/obj.names"
+backup = "/content/darknet/backup/"
+
+'carro.names'
+'pedestre.names'
+
+'class_id x_center y_center width height'
+
+!./darknet detector train /caminho/para/o/arquivo/obj.data /caminho/para/o/arquivo/yolov4.cfg /caminho/para/o/arquivo/backup/yolov4.weights
+
+
+!./darknet detector test /caminho/para/o/arquivo/obj.data /caminho/para/o/arquivo/yolov4.cfg /caminho/para/o/arquivo/backup/yolov4_final.weights /caminho/para/a/imagem/teste.jpg
+
